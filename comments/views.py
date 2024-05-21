@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework.filters import OrderingFilter
@@ -9,6 +10,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .serializers import CommentSerializer
 from .models import Comment
 from .filters import CommentFilter
+from .utils import is_author
 
 
 class CommentViewSet(ModelViewSet):
@@ -19,11 +21,12 @@ class CommentViewSet(ModelViewSet):
     ordering_fields = ['date_created', 'comment_text']
     permission_classes = [IsAuthenticatedOrReadOnly]
 
-    def retrieve(self, request, *args, **kwargs):
-        print(request.method)
-        try:
-            if Comment.objects.get(pk=kwargs['pk']).user != request.user:
-                return Response({'detal': 'Доступ запрещен'}, status=400)
-        except Comment.DoesNotExist:
-            return Response({'detail': 'Объект не найден'})
-        return super().retrieve(request, *args, **kwargs)
+    def destroy(self, request, *args, **kwargs):
+        instance = is_author(self.get_object(), request)
+        self.perform_destroy(instance)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+    def update(self, request, *args, **kwargs):
+        instance = is_author(self.get_object(), request)
+        self.perform_update(instance)
+        return super().update(request, *args, **kwargs)
