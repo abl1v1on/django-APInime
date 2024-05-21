@@ -35,6 +35,7 @@ INSTALLED_APPS = [
 
     'anime',
     'users',
+    'comments',
 ]
 
 MIDDLEWARE = [
