@@ -17,3 +17,10 @@ class AnimeFilter(django_filters.FilterSet):
     class Meta:
         model = Anime
         fields = ['title', 'genres', 'studio']
+
+
+# class LikeFilter(django_filters.FilterSet):
+#     class Meta:
+#         model = Like
+#         fields = ['anime', 'user']
+    
