@@ -1,0 +1,60 @@
+from django.db import models
+from django.contrib.auth import get_user_model
+
+
+ANIME_TYPE_CHOISES = [
+    ('tv_series', 'Сериал'),
+    ('movie', 'Фильм')
+]
+
+ANIME_STATUS_CHOISES = [
+    ('it_continues', 'Выходит'),
+    ('completed', 'Завершен')
+]
+
+class Anime(models.Model):
+    title = models.CharField('Название', max_length=255)
+    alt_title = models.CharField('Альтернативное название', max_length=255, blank=True)
+    description = models.TextField('Описание', max_length=1000)
+    type = models.CharField('Тип',max_length=10, choices=ANIME_TYPE_CHOISES)
+    studio = models.ForeignKey('Studio', on_delete=models.CASCADE, blank=True, verbose_name='Студия')
+
+    date_aired = models.DateField('Дата выхода в эфир')
+    status = models.CharField('Статус', max_length=15, choices=ANIME_STATUS_CHOISES)
+    genres = models.ManyToManyField('Genre', related_name='anime_genres', verbose_name='Жанры')
+    rating = models.FloatField('Рейтинг', blank=True, default=0)
+    duration = models.CharField('Продолжительность', max_length=50)
+    views = models.PositiveIntegerField('Просмотры', blank=True, default=0)
+    cover = models.ImageField('Обложка', upload_to='anime_covers/%Y/%m', blank=True)
+    slug = models.SlugField('URL', max_length=255, db_index=True, unique=True)
+
+    class Meta:
+        verbose_name = 'Аниме'
+        verbose_name_plural = 'Аниме'
+    
+    def __str__(self) -> str:
+        return self.title
+
+
+class Studio(models.Model):
+    name = models.CharField('Название', max_length=100)
+    slug = models.SlugField('URL', max_length=100, db_index=True, unique=True)
+
+    class Meta:
+        verbose_name = 'Студия'
+        verbose_name_plural = 'Студии'
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class Genre(models.Model):
+    name = models.CharField('Название', max_length=100)
+    slug = models.SlugField('URL', max_length=100, db_index=True, unique=True)
+    
+    class Meta:
+        verbose_name = 'Жанр'
+        verbose_name_plural = 'Жанры'
+    
+    def __str__(self) -> str:
+        return self.name
