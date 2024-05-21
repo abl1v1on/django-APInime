@@ -12,6 +12,12 @@ ANIME_STATUS_CHOISES = [
     ('completed', 'Завершен')
 ]
 
+VIEWING_STATUS_CHOISES = [
+    ('watching', 'Смотрю'),
+    ('viewed', 'Просмотрено'),
+    ('abandoned', 'Заброшено')
+]
+
 class Anime(models.Model):
     title = models.CharField('Название', max_length=255)
     alt_title = models.CharField('Альтернативное название', max_length=255, blank=True)
@@ -58,3 +64,25 @@ class Genre(models.Model):
     
     def __str__(self) -> str:
         return self.name
+
+
+class ViewingStatus(models.Model):
+    name = models.CharField(
+        max_length=15, 
+        choices=VIEWING_STATUS_CHOISES, 
+        verbose_name='Название'
+    )
+    slug = models.SlugField(
+        'URL', 
+        max_length=15, 
+        db_index=True, 
+        unique=True
+    )
+
+    class Meta:
+        verbose_name = 'Статус просмотра'
+        verbose_name_plural = 'Статусы просмотов'
+    
+    def __str__(self) -> str:
+        return self.name
+    
