@@ -8,6 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('anime.urls', namespace='anime')),
     path('users/', include('users.urls', namespace='user')),
+    path('comments/', include('comments.urls', namespace='comment'))
 ]
 
 
