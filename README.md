@@ -33,13 +33,13 @@
 ### Create new user
 
 `AllowAny`
-~~~HTTP
+~~~
 POST /users/signup/ HTTP
 data: {
-    "email": "str",
-    "password": "str",
-    "password2": "str",
-    "is_subscribed": "bool"
+    "email": str,
+    "password": str,
+    "password2": str,
+    "is_subscribed": bool
 }
 ~~~
 
