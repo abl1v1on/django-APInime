@@ -49,8 +49,8 @@ HTTP 201 CREATED
 ~~~
 ~~~JSON
 {
-    "email": str,
-    "is_subscribed": bool
+    "email": "your email",
+    "is_subscribed": "is subscribed"
 }
 ~~~
 
