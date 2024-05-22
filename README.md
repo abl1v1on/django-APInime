@@ -36,15 +36,15 @@
 ~~~HTTP
 POST /users/signup/ HTTP
 data: {
-    "email": str,
-    "password": str,
-    "password2": str,
-    "is_subscribed": bool
+    "email": "str",
+    "password": "str",
+    "password2": "str",
+    "is_subscribed": "bool"
 }
 ~~~
 
 Example response
-~~~HTTP
+~~~
 HTTP 201 CREATED
 ~~~
 ~~~JSON
