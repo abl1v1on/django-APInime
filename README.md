@@ -148,6 +148,9 @@ POST /anime/ HTTP
 headers: {
     Authorization: Bearer {your_token}
 }
+data: {
+    **new_anime
+}
 ~~~
 
 Example response
@@ -281,7 +284,7 @@ HTTP 200 OK
 ~~~
 GET /anime/episodes/ HTTP
 data: {
-    anime: id
+    anime: int
 }
 ~~~
 
@@ -297,6 +300,184 @@ HTTP 200 OK
         "series_file": "path_to_file",
         "anime_id": 0
     }
+]
+~~~
+
+
+<br>
+
+### Get comments
+
+`IsAuthenticatedOrReadOnly`
+~~~
+GET /comments/ HTTP
+~~~
+
+Example response
+~~~
+HTTP 200 OK
+~~~
+
+~~~JSON
+[
+    {
+        "id": 0,
+        "comment_text": "string",
+        "date_created": "2024-05-21T19:27:39.436599Z",
+        "anime": 0,
+        "user": 0
+    }
+]
+~~~
+
+<br>
+
+### Create new comment
+
+`IsAuthenticatedOrReadOnly`
+~~~
+POST /comments/ HTTP
+data: {
+    comment_text: str,
+    anime: int,
+    user: int
+}
+~~~
+
+Example response
+~~~
+HTTP 201 CREATED
+~~~
+
+~~~JSON
+[
+    {
+        "id": 0,
+        "comment_text": "string",
+        "date_created": "2024-05-21T19:27:39.436599Z",
+        "anime": 0,
+        "user": 0
+    }
+]
+~~~
+
+<br>
+
+### Get comment detail
+
+`IsAuthenticatedOrReadOnly`
+~~~
+GET /comments/{comment_id}/ HTTP
+~~~
+
+Example response
+~~~
+HTTP 200 OK
+~~~
+
+~~~JSON
+{
+    "id": 0,
+    "comment_text": "string",
+    "date_created": "2024-05-21T19:27:39.436599Z",
+    "anime": 0,
+    "user": 0
+}
+~~~
+
+<br>
+
+### Delete comment
+
+`IsAuthenticatedOrReadOnly`
+~~~
+DELETE /comments/{comment_id}/ HTTP
+~~~
+
+Example response
+~~~
+HTTP 204 NO CONTENT
+~~~
+
+
+<br>
+
+### Update comment
+
+`IsAuthenticatedOrReadOnly`
+~~~
+PATH, PUT /comments/{comment_id}/ HTTP
+data: {
+    **new_comment
+}
+~~~
+
+Example response
+~~~
+HTTP 200 OK
+~~~
+
+~~~JSON
+{
+    "id": 0,
+    "comment_text": "string",
+    "date_created": "2024-05-21T19:27:39.436599Z",
+    "anime": 0,
+    "user": 0
+}
+~~~
+
+
+
+<br>
+
+### Get likes
+
+`IsAuthenticatedOrReadOnly`
+~~~
+GET /likes/ HTTP
+~~~
+
+Example response
+~~~
+HTTP 200 OK
+~~~
+
+~~~JSON
+[
+    {
+        "id": 0,
+        "user": 0,
+        "anime": 0
+    },
+]
+~~~
+
+<br>
+
+### Create like
+
+`IsAuthenticatedOrReadOnly`
+~~~
+POST /likes/ HTTP
+data: {
+    user: int,
+    anime: int
+}
+~~~
+
+Example response
+~~~
+HTTP 201 CREATED
+~~~
+
+~~~JSON
+[
+    {
+        "id": 0,
+        "user": 0,
+        "anime": 0
+    },
 ]
 ~~~
 
