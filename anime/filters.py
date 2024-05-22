@@ -1,5 +1,5 @@
 import django_filters
-from .models import Anime, Genre, Studio
+from .models import Anime, Genre, Studio, Like
 
 
 class AnimeFilter(django_filters.FilterSet):
@@ -19,8 +19,8 @@ class AnimeFilter(django_filters.FilterSet):
         fields = ['title', 'genres', 'studio']
 
 
-# class LikeFilter(django_filters.FilterSet):
-#     class Meta:
-#         model = Like
-#         fields = ['anime', 'user']
+class LikeFilter(django_filters.FilterSet):
+    class Meta:
+        model = Like
+        fields = ['anime', 'user']
     
