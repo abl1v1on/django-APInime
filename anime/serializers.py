@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Anime, Studio
+from .models import Anime, Studio, Like
 
 class StudioSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,12 +19,11 @@ class AnimeSerializer(serializers.ModelSerializer):
         fields = '__all__'
     
     def get_likes(self, obj: Anime):
-        print(Anime.likes)
-        print('\n\n\n')
         return obj.total_likes()
 
 
-class LikeSerializer(serializers.Serializer):
-    user = serializers.IntegerField()
-    anime = serializers.IntegerField()
-
+class LikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Like
+        fields = '__all__'
+    
