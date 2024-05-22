@@ -1,15 +1,16 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.views import APIView
 from rest_framework.filters import OrderingFilter
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .serializers import AnimeSerializer, LikeSerializer
+from .serializers import AnimeSerializer, LikeSerializer, AnimeSeriesSerializer
 from .filters import AnimeFilter, LikeFilter
 from .utils import utils
 from .permissions import IsAdminUserOrReadOnly
-from .models import Anime, Like
+from .models import Anime, Like, AnimeSeries
 
 
 class AnimeViewSet(ModelViewSet):
@@ -36,3 +37,14 @@ class LikeViewSet(ModelViewSet):
             ).exists():
                 return Response({'detail': 'It\'s already been liked.'})
         return super().create(request, *args, **kwargs)
+
+
+class AnimeSeriesAPIVIew(APIView):
+    def get(self, request):
+        try:
+            episodes = AnimeSeries.objects.filter(anime_id=request.data['anime'])
+            serializer = AnimeSeriesSerializer(episodes, many=True)
+            return Response(serializer.data, status=200)
+        except KeyError:
+            return Response({'anime': ['This is a required field']})
+    
