@@ -59,7 +59,7 @@ HTTP 201 CREATED
 ### Get JWT token
 
 `AllowAny`
-~~~HTTP
+~~~
 POST /users/token/ HTTP
 data: {
     "email": str,
@@ -68,13 +68,13 @@ data: {
 ~~~
 
 Example response
-~~~HTTP
+~~~
 HTTP 200 OK
 ~~~
 ~~~JSON
 {
-    "refresh": str,
-    "access": str
+    "refresh": "str",
+    "access": "str"
 }
 ~~~
 
@@ -83,7 +83,7 @@ HTTP 200 OK
 ### Refresh token
 
 `AllowAny`
-~~~HTTP
+~~~
 POST /users/token/refresh/ HTTP
 data: {
     "refresh": str
@@ -91,13 +91,13 @@ data: {
 ~~~
 
 Example response
-~~~HTTP
+~~~
 HTTP 200 OK
 ~~~
 ~~~JSON
 {
-    "access": str,
-    "refresh": str
+    "access": "str",
+    "refresh": "str"
 }
 ~~~
 
@@ -106,35 +106,35 @@ HTTP 200 OK
 ### Get anime list 
 
 `IsAdminOrReadOnly`
-~~~HTTP
+~~~
 GET /anime/ HTTP
 ~~~
 
 Example response
-~~~HTTP
+~~~
 HTTP 200 OK
 ~~~
 ~~~JSON
 [
     {
-        "id": int,
-        "rating": float,
-        "views": int,
+        "id": 0,
+        "rating": 0.0,
+        "views": 0,
         "sudio": {
-            "id": int,
-            "slug": str
+            "id": 0,
+            "slug": "string"
         },
-        "likes": int,
-        "title": str,
-        "alt_title": str,
-        "description": str,
-        "type": str,
-        "date_aired": date,
-        "status": str,
-        "duration": str,
-        "cover": str,
-        "slug": str,
-        "genres": list
+        "likes": 0,
+        "title": "string",
+        "alt_title": "string",
+        "description": "string",
+        "type": "string",
+        "date_aired": "2024-05-22",
+        "status": "string",
+        "duration": "string",
+        "cover": "string",
+        "slug": "string",
+        "genres": []
     }
 ]
 ~~~
@@ -143,7 +143,7 @@ HTTP 200 OK
 ### Create new anime
 `IsAdminOrReadOnly`
 
-~~~HTTP
+~~~
 POST /anime/ HTTP
 headers: {
     Authorization: Bearer {your_token}
@@ -151,29 +151,29 @@ headers: {
 ~~~
 
 Example response
-~~~HTTP
+~~~
 HTTP 201 CREATED
 ~~~
 ~~~JSON
 {
-    "id": int,
-    "rating": float,
-    "views": int,
+    "id": 0,
+    "rating": 0.0,
+    "views": 0,
     "sudio": {
-        "id": int,
-        "slug": str
+        "id": 0,
+        "slug": "string"
     },
-    "likes": int,
-    "title": str,
-    "alt_title": str,
-    "description": str,
-    "type": str,
-    "date_aired": date,
-    "status": str,
-    "duration": str,
-    "cover": str,
-    "slug": str,
-    "genres": list
+    "likes": 0,
+    "title": "string",
+    "alt_title": "string",
+    "description": "string",
+    "type": "string",
+    "date_aired": "2024-05-22",
+    "status": "string",
+    "duration": "string",
+    "cover": "string",
+    "slug": "string",
+    "genres": []
 }
 ~~~
 
@@ -182,34 +182,34 @@ HTTP 201 CREATED
 ### Get anime detail
 `IsAdminOrReadOnly`
 
-~~~HTTP
+~~~
 GET /anime/{anime_id}/ HTTP
 ~~~
 
 Example response
-~~~HTTP
+~~~
 HTTP 200 OK
 ~~~
 ~~~JSON
 {
-    "id": int,
-    "rating": float,
-    "views": int,
+    "id": 0,
+    "rating": 0.0,
+    "views": 0,
     "sudio": {
-        "id": int,
-        "slug": str
+        "id": 0,
+        "slug": "string"
     },
-    "likes": int,
-    "title": str,
-    "alt_title": str,
-    "description": str,
-    "type": str,
-    "date_aired": date,
-    "status": str,
-    "duration": str,
-    "cover": str,
-    "slug": str,
-    "genres": list
+    "likes": 0,
+    "title": "string",
+    "alt_title": "string",
+    "description": "string",
+    "type": "string",
+    "date_aired": "2024-05-22",
+    "status": "string",
+    "duration": "string",
+    "cover": "string",
+    "slug": "string",
+    "genres": []
 }
 ~~~
 
@@ -218,7 +218,7 @@ HTTP 200 OK
 ### Delete anime
 `IsAdminOrReadOnly`
 
-~~~HTTP
+~~~
 DELETE /anime/{anime_id}/ HTTP
 headers: {
     Authorization: Bearer {your_token}
@@ -226,7 +226,7 @@ headers: {
 ~~~
 
 Example response
-~~~HTTP
+~~~
 HTTP 204 NO CONTENT
 ~~~
 
@@ -235,7 +235,7 @@ HTTP 204 NO CONTENT
 ### Update anime
 `IsAdminOrReadOnly`
 
-~~~HTTP
+~~~
 PATH, PUT /anime/{anime_id}/ HTTP
 headers: {
     Authorization: Bearer {your_token}
@@ -246,30 +246,30 @@ data: {
 ~~~
 
 Example response
-~~~HTTP
+~~~
 HTTP 200 OK
 ~~~
 
 ~~~JSON
 {
-    "id": int,
-    "rating": float,
-    "views": int,
+    "id": 0,
+    "rating": 0.0,
+    "views": 0,
     "sudio": {
-        "id": int,
-        "slug": str
+        "id": 0,
+        "slug": "string"
     },
-    "likes": int,
-    "title": str,
-    "alt_title": str,
-    "description": str,
-    "type": str,
-    "date_aired": date,
-    "status": str,
-    "duration": str,
-    "cover": str,
-    "slug": str,
-    "genres": list
+    "likes": 0,
+    "title": "string",
+    "alt_title": "string",
+    "description": "string",
+    "type": "string",
+    "date_aired": "2024-05-22",
+    "status": "string",
+    "duration": "string",
+    "cover": "string",
+    "slug": "string",
+    "genres": []
 }
 ~~~
 
@@ -278,7 +278,7 @@ HTTP 200 OK
 ### Get anime episodes
 
 `AllowAny`
-~~~HTTP
+~~~
 GET /anime/episodes/ HTTP
 data: {
     anime: id
@@ -286,16 +286,16 @@ data: {
 ~~~
 
 Example response
-~~~HTTP
+~~~
 HTTP 200 OK
 ~~~
 
 ~~~JSON
 [
     {
-        "id": int,
-        "series_file": str,
-        "anime_id": int
+        "id": 0,
+        "series_file": "path_to_file",
+        "anime_id": 0
     }
 ]
 ~~~
