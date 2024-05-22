@@ -14,7 +14,7 @@ class AnimeAdmin(admin.ModelAdmin):
         'studio',
         'status',
     ]
-    readonly_fields = ['get_cover', 'rating', 'views', 'get_likes', 'likes']
+    readonly_fields = ['get_cover', 'rating', 'views']
     list_display_links = ('title', )
     search_fields = ('title', )
     filter_horizontal = ('genres', )
@@ -23,8 +23,8 @@ class AnimeAdmin(admin.ModelAdmin):
     def get_cover(self, obj):
         return mark_safe(f'<img src="{obj.cover.url}" width="150px">')
     
-    def get_likes(self, obj: Anime):
-        return obj.total_likes()
+    # def get_likes(self, obj: Anime):
+    #     return obj.total_likes()
 
 
 @admin.register(Studio)
