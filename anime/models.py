@@ -33,7 +33,7 @@ class Anime(models.Model):
     duration = models.CharField('Продолжительность', max_length=50)
     views = models.PositiveIntegerField('Просмотры', blank=True, default=0)
     cover = models.ImageField('Обложка', upload_to='anime_covers/%Y/%m', blank=True)
-    likes = models.ManyToManyField(get_user_model(), related_name='anime_likes', blank=True, default=0)
+    # likes = models.ManyToManyField(get_user_model(), related_name='anime_likes', blank=True, default=0)
     slug = models.SlugField('URL', max_length=255, db_index=True, unique=True)
 
     class Meta:
@@ -44,7 +44,7 @@ class Anime(models.Model):
         return self.title
 
     def total_likes(self):
-        return self.likes.count()
+        return self.likes_anime.count()
 
 
 class Studio(models.Model):
@@ -92,15 +92,15 @@ class ViewingStatus(models.Model):
         return self.name
 
 
-# class Like(models.Model):
-#     user = models.ForeignKey(
-#         get_user_model(), 
-#         on_delete=models.CASCADE,
-#         verbose_name='Пользователь'
-#     )
-#     anime = models.ForeignKey(
-#         Anime,
-#         on_delete=models.CASCADE,
-#         verbose_name='Аниме',
-#         related_name='likes_anime'
-#     )
+class Like(models.Model):
+    user = models.ForeignKey(
+        get_user_model(), 
+        on_delete=models.CASCADE,
+        verbose_name='Пользователь'
+    )
+    anime = models.ForeignKey(
+        Anime,
+        on_delete=models.CASCADE,
+        verbose_name='Аниме',
+        related_name='likes_anime'
+    )
