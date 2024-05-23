@@ -29,6 +29,10 @@ class AnimeSerializer(serializers.ModelSerializer):
         return obj.total_likes()
 
 class LikeSerializer(serializers.ModelSerializer):
+    user = serializers.CharField(
+        read_only=True
+    )
+
     class Meta:
         model = Like
         fields = '__all__'
