@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from .models import Anime, Studio, Genre, AnimeSeries
+from .models import Anime, Studio, Genre, AnimeSeries, Like
 
 
 class AnimeSeriesInlime(admin.TabularInline):
@@ -41,4 +41,9 @@ class GenreAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
     list_display_links = ('name', )
     prepopulated_fields = {'slug': ('name', )}
+
+
+@admin.register(Like)
+class LikeAdmin(admin.ModelAdmin):
+    list_display = ['user', 'anime', 'like']
     
