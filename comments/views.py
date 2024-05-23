@@ -30,3 +30,8 @@ class CommentViewSet(ModelViewSet):
         instance = is_author(self.get_object(), request)
         self.perform_update(instance)
         return super().update(request, *args, **kwargs)
+
+    def perform_create(self, serializer):
+        serializer.validated_data['user'] = self.request.user
+        serializer.save()
+        
