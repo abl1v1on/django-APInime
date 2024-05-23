@@ -7,14 +7,18 @@ app_name = 'anime'
 
 anime_router = SimpleRouter()
 anime_router.register(r'anime', views.AnimeViewSet)
+anime_router.register(r'episodes', views.AnimeSeriesViewSet, basename='anime-series')
+
 
 like_router = SimpleRouter()
 like_router.register(r'likes', views.LikeViewSet)
 
+# anime_series_router = SimpleRouter()
+# anime_series_router.register(r'episodes', views.AnimeSeriesViewSet)
+
+
 urlpatterns = [
-    path('anime/episodes/', views.AnimeSeriesAPIVIew.as_view(), name='anime_series'),
-    # path('like/', views.LikeCreateAPIView.as_view(), name='like'),
-    # path('like-delete/', views.DeleteLikeAPIView.lookup_field, name='like_delete'),
+
 ]
 
 urlpatterns += anime_router.urls
