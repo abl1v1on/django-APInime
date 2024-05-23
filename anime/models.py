@@ -34,6 +34,7 @@ class Anime(models.Model):
     views = models.PositiveIntegerField('Просмотры', blank=True, default=0)
     cover = models.ImageField('Обложка', upload_to='anime_covers/%Y/%m', blank=True)
     slug = models.SlugField('URL', max_length=255, db_index=True, unique=True)
+    likes = models.ManyToManyField(get_user_model(), related_name='anime_likes', through='Like')
 
     class Meta:
         verbose_name = 'Аниме'
@@ -43,7 +44,7 @@ class Anime(models.Model):
         return self.title
 
     def total_likes(self):
-        return self.likes_anime.count()
+        return self.likes.count()
 
 
 class AnimeSeries(models.Model):
@@ -117,3 +118,8 @@ class Like(models.Model):
         verbose_name='Аниме',
         related_name='likes_anime'
     )
+    like = models.BooleanField(default=False)
+
+    def __str__(self) -> str:
+        return self.user.email
+    
