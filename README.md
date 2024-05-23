@@ -280,17 +280,42 @@ HTTP 200 OK
 
 ### Get anime episodes
 
-`AllowAny`
+`IsAdminOrReadOnly`
 ~~~
-GET /anime/episodes/ HTTP
-data: {
-    anime: int
-}
+GET /episodes/ HTTP
 ~~~
 
 Example response
 ~~~
 HTTP 200 OK
+~~~
+
+~~~JSON
+[
+    {
+        "id": 0,
+        "series_file": "path_to_file",
+        "anime_id": 0
+    }
+]
+~~~
+
+<br>
+
+### Create anime episode
+
+`IsAdminOrReadOnly`
+~~~
+GET /episodes/ HTTP
+data: {
+    series_file: str,
+    anime_id: int
+}
+~~~
+
+Example response
+~~~
+HTTP 201 CREATED
 ~~~
 
 ~~~JSON
@@ -480,4 +505,60 @@ HTTP 201 CREATED
     },
 ]
 ~~~
+
+will be updated...
+
+<br><br>
+
+## Filters
+
+### Anime list
+
+~~~
+GET /anime/?filters... HTTP
+~~~
+
+- Title contains 
+
+    `?title=my hero`
+
+- By genre 
+
+    `?genres=fantistika&genres=skhola`
+
+- By studio 
+    
+    `?studio=1`
+
+<br>
+
+### Comment list
+
+~~~
+GET /comments/?filters... HTTP
+~~~
+
+- By user id
+
+    `?user=1`
+
+- By anime id
+
+    `?anime=14`
+
+<br>
+
+### Like list
+
+~~~
+GET /likes/?filters... HTTP
+~~~
+
+- By anime id
+
+    `?anime=6`
+
+- By user id
+
+    `?user=10`
 
