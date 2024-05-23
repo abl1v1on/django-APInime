@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
 
 from .serializers import AnimeSerializer, LikeSerializer, AnimeSeriesSerializer
-from .filters import AnimeFilter, LikeFilter
+from .filters import AnimeFilter, LikeFilter, AnimeSeriesFilter
 from .utils import utils
 from .permissions import IsAdminUserOrReadOnly
 from .models import Anime, Like, AnimeSeries
@@ -19,6 +19,14 @@ class AnimeViewSet(ModelViewSet):
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = AnimeFilter
     ordering_fields = ['date_aired', 'title']    
+    permission_classes = [IsAdminUserOrReadOnly]
+
+
+class AnimeSeriesViewSet(ModelViewSet):
+    queryset = AnimeSeries.objects.all()
+    serializer_class = AnimeSeriesSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = AnimeSeriesFilter
     permission_classes = [IsAdminUserOrReadOnly]
 
 
@@ -37,14 +45,3 @@ class LikeViewSet(ModelViewSet):
             ).exists():
                 return Response({'detail': 'It\'s already been liked.'})
         return super().create(request, *args, **kwargs)
-
-
-class AnimeSeriesAPIVIew(APIView):
-    def get(self, request):
-        try:
-            episodes = AnimeSeries.objects.filter(anime_id=request.data['anime'])
-            serializer = AnimeSeriesSerializer(episodes, many=True)
-            return Response(serializer.data, status=200)
-        except KeyError:
-            return Response({'anime': ['This is a required field']})
-    
