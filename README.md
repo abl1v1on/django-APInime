@@ -567,7 +567,7 @@ GET /likes/?filters... HTTP
 ## Example message about the release of a new episode
 
 <div align="center">
-    <img src="assets/example_email_message.png" width="300">
+    <img src="assets/example_email_message.png" width="450">
 </div>
 
 <!-- ![alt text](assets/example_email_message.png) -->
