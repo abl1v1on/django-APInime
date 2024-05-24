@@ -570,4 +570,10 @@ GET /likes/?filters... HTTP
     <img src="assets/example_email_message.png" width="450">
 </div>
 
-<!-- ![alt text](assets/example_email_message.png) -->
+
+<br><br>
+
+## Example message after registration
+<div align="center">
+    <img src="assets/example_email_message_after_register.png" width="450">
+</div>
