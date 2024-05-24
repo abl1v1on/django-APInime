@@ -562,3 +562,7 @@ GET /likes/?filters... HTTP
 
     `?user=10`
 
+<br><br>
+
+## Example message about the release of a new episode
+![alt text](assets/example_email_message.png)
