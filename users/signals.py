@@ -4,18 +4,18 @@ from django.dispatch import receiver
 
 from .models import Profile
 from anime.utils import call_in_new_anime_episodes
-
+from anime.tasks import send_mail_task
 
 
 @receiver(post_save, sender=get_user_model())
 def send_notification_on_new_episode(sender, instance, created, **kwargs):
     if created:
         if instance.is_subscribed:
-            call_in_new_anime_episodes(
+            send_mail_task.delay(
                 'Добро пожаловать!',
                 'Вы подписались на рассылку',
                 [instance.email],
-                html_template='anime/welcome_email_message.html'
+                html_template='anime/welcome_email_message.html',
             )
 
 
