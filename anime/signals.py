@@ -1,7 +1,8 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
 from .models import AnimeSeries
-from .utils import call_in_new_anime_episodes
+from .tasks import send_mail_task
 
 
 @receiver(post_save, sender=AnimeSeries)
@@ -12,14 +13,14 @@ def send_notification_on_new_episode(sender, instance, created, **kwargs):
             user = like.user
             if user.is_subscribed:
                 user_email = user.email
-                call_in_new_anime_episodes(
+                send_mail_task.delay(
                     f'НОВАЯ СЕРИЯ {instance.anime_id.title}',
                     '',
                     [user_email],
+                    html_template='anime/new_episode_message.html',
                     context={
                         'logo': instance.anime_id.cover.url,
                         'title': instance.anime_id.title,
                         'desc': instance.anime_id.description
                     }
                 )
-                # call_in_new_anime_episodes(instance.anime_id, user_email)
