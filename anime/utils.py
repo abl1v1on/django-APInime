@@ -1,4 +1,6 @@
 from .models import Anime, AnimeSeries, Like, models
+from django.core.mail import send_mail
+from config import settings
 
 
 class Utils:
@@ -10,6 +12,16 @@ class Utils:
     
     def is_exist(self, **kwargs):
         return self.model.objects.filter(**kwargs).exists()
+
+
+def call_in_new_anime_episodes(anime, user_email):
+    send_mail(
+        f'Вышла новая серия {anime.title}',
+        f'Новая серия {anime.title}!',
+        settings.EMAIL_HOST_USER,
+        [user_email],
+        fail_silently=False
+    )
 
 
 anime_utils = Utils(model=Anime)
