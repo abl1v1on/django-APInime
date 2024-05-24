@@ -61,6 +61,7 @@ class AnimeSeries(models.Model):
         verbose_name_plural = 'Серии'
 
 
+
 class Studio(models.Model):
     name = models.CharField('Название', max_length=100)
     slug = models.SlugField('URL', max_length=100, db_index=True, unique=True)
