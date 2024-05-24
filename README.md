@@ -564,7 +564,7 @@ GET /likes/?filters... HTTP
 
 <br><br>
 
-## Example message about the release of a new episode
+## Example email message about the release of a new episode
 
 <div align="center">
     <img src="assets/example_email_message.png" width="450">
@@ -573,7 +573,7 @@ GET /likes/?filters... HTTP
 
 <br><br>
 
-## Example message after registration
+## Example email message after registration
 <div align="center">
     <img src="assets/example_email_message_after_register.png" width="450">
 </div>
