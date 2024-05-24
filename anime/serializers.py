@@ -38,7 +38,6 @@ class LikeSerializer(serializers.ModelSerializer):
     user = serializers.CharField(
         read_only=True
     )
-    anime = AnimeSerializerShort()
 
     class Meta:
         model = Like
