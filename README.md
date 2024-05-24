@@ -1,6 +1,7 @@
 <div align="center">
     <img src="assets/logo(1).png" width="300"><br>
-    <img src="https://skillicons.dev/icons?i=python,django" width="120"/>
+    <img src="https://skillicons.dev/icons?i=python,django,postgres,redis" width="190"/>
+    <img src="https://s3.amazonaws.com/media-p.slid.es/uploads/270956/images/3216377/celery.png" width="43"/>
     <h3>
         <storng>APInime</strong> is a web application that allows users to browse and rate anime. It is built using Django and Django REST Framework.
     </h3>
