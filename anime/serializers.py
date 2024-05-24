@@ -1,4 +1,3 @@
-from django.forms import model_to_dict
 from rest_framework import serializers
 
 from .models import Anime, Studio, Like, AnimeSeries
