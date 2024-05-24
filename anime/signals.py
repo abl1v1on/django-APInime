@@ -12,4 +12,14 @@ def send_notification_on_new_episode(sender, instance, created, **kwargs):
             user = like.user
             if user.is_subscribed:
                 user_email = user.email
-                call_in_new_anime_episodes(instance.anime_id, user_email)
+                call_in_new_anime_episodes(
+                    f'НОВАЯ СЕРИЯ {instance.anime_id.title}',
+                    '',
+                    [user_email],
+                    context={
+                        'logo': instance.anime_id.cover.url,
+                        'title': instance.anime_id.title,
+                        'desc': instance.anime_id.description
+                    }
+                )
+                # call_in_new_anime_episodes(instance.anime_id, user_email)
