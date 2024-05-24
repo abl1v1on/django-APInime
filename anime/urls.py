@@ -12,9 +12,6 @@ anime_router.register(r'episodes', views.AnimeSeriesViewSet, basename='anime-ser
 like_router = SimpleRouter()
 like_router.register(r'likes', views.LikeViewSet)
 
-# anime_series_router = SimpleRouter()
-# anime_series_router.register(r'episodes', views.AnimeSeriesViewSet)
-
 
 urlpatterns = [
 
@@ -22,3 +19,12 @@ urlpatterns = [
 
 urlpatterns += anime_router.urls
 urlpatterns += like_router.urls
+
+"""
+*__pycache__
+*.pyc
+.venv
+db.sqlite3
+media
+config.py
+"""
