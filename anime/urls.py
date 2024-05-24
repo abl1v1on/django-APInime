@@ -19,12 +19,3 @@ urlpatterns = [
 
 urlpatterns += anime_router.urls
 urlpatterns += like_router.urls
-
-"""
-*__pycache__
-*.pyc
-.venv
-db.sqlite3
-media
-config.py
-"""
