@@ -9,14 +9,14 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from .serializers import AnimeSerializer, LikeSerializer, AnimeSeriesSerializer
 from .filters import AnimeFilter, LikeFilter, AnimeSeriesFilter
-from .utils import utils
+from .utils import anime_utils, anime_series_urils, likes_utils
 from .permissions import IsAdminUserOrReadOnly
-from .models import Anime, Like, AnimeSeries
+from .models import Anime
 from comments.utils import is_author
 
 
 class AnimeViewSet(ModelViewSet):
-    queryset = utils.get_anime()
+    queryset = anime_utils.get_objects()
     serializer_class = AnimeSerializer
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = AnimeFilter
@@ -25,7 +25,7 @@ class AnimeViewSet(ModelViewSet):
 
 
 class AnimeSeriesViewSet(ModelViewSet):
-    queryset = AnimeSeries.objects.all()
+    queryset = anime_series_urils.get_objects()
     serializer_class = AnimeSeriesSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = AnimeSeriesFilter
@@ -33,7 +33,7 @@ class AnimeSeriesViewSet(ModelViewSet):
 
 
 class LikeViewSet(ModelViewSet):
-    queryset = Like.objects.all()
+    queryset = likes_utils.get_objects()
     serializer_class = LikeSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = LikeFilter   
@@ -47,7 +47,7 @@ class LikeViewSet(ModelViewSet):
     def perform_create(self, serializer):
         anime_id = self.request.data.get('anime')
         anime = get_object_or_404(Anime, pk=anime_id)
-        if Like.objects.filter(user=self.request.user, anime=anime).exists():
+        if likes_utils.is_exist(user=self.request.user, anime=anime):
             raise ValidationError(detail='You have already liked this anime')
         serializer.validated_data['user'] = self.request.user
         serializer.save()
