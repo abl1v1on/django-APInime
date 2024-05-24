@@ -16,20 +16,11 @@ class Utils:
         return self.model.objects.filter(**kwargs).exists()
 
 
-# def call_in_new_anime_episodes(anime, user_email):
-#     send_mail(
-#         f'Вышла новая серия {anime.title}',
-#         f'Новая серия {anime.title}!',
-#         settings.EMAIL_HOST_USER,
-#         [user_email],
-#         fail_silently=False
-#     )
-
 def call_in_new_anime_episodes(
         subject, 
         message, 
         recipient_list, 
-        html_template='anime/new_episode_message.html', 
+        html_template, 
         context=None
     ):
     msg = EmailMultiAlternatives(
