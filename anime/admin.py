@@ -45,5 +45,5 @@ class GenreAdmin(admin.ModelAdmin):
 
 @admin.register(Like)
 class LikeAdmin(admin.ModelAdmin):
-    list_display = ['user', 'anime', 'like']
+    list_display = ['user', 'anime']
     
