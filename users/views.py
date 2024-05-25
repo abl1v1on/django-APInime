@@ -7,7 +7,11 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
 
 from .models import Profile
-from .serializers import CustomTokenObtainPairSerializer, CreateUserSerializer, ProfileSerializer
+from .serializers import (
+    CustomTokenObtainPairSerializer, 
+    CreateUserSerializer, 
+    ProfileSerializer
+    )
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
