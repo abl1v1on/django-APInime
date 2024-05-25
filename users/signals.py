@@ -3,7 +3,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from .models import Profile
-from anime.utils import call_in_new_anime_episodes
 from anime.tasks import send_mail_task
 
 
