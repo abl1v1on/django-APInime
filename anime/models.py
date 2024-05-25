@@ -54,6 +54,7 @@ class AnimeSeries(models.Model):
         verbose_name='Аниме'
     )
     series_file = models.FileField(upload_to='anime_series/%Y/%m', verbose_name='Серии')
+    series_number = models.PositiveIntegerField('Номер серии', blank=True, null=True)
 
     class Meta:
         verbose_name = 'Серия'
@@ -118,8 +119,7 @@ class Like(models.Model):
         verbose_name='Аниме',
         related_name='likes_anime'
     )
-    like = models.BooleanField(default=False)
-
+    
     def __str__(self) -> str:
         return self.user.email
     
