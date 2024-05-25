@@ -27,8 +27,9 @@ class AnimeViewSet(ModelViewSet):
 class AnimeSeriesViewSet(ModelViewSet):
     queryset = anime_series_urils.get_objects()
     serializer_class = AnimeSeriesSerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = AnimeSeriesFilter
+    ordering_fields = ['series_number']    
     permission_classes = [IsAdminUserOrReadOnly]
 
 
@@ -37,6 +38,7 @@ class LikeViewSet(ModelViewSet):
     serializer_class = LikeSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = LikeFilter   
+    http_method_names = ['get', 'post', 'delete']
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def destroy(self, request, *args, **kwargs):
