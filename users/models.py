@@ -43,7 +43,7 @@ class User(AbstractUser):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, verbose_name='Пользователь')
+    user = models.OneToOneField(get_user_model(), related_name='profile_user', on_delete=models.CASCADE, verbose_name='Пользователь')
     profile_pic = models.ImageField('Аватарка', upload_to='profile_pics/%Y/%m', blank=True)
     desc = models.TextField('Описание', max_length=1000, blank=True)
 
