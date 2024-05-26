@@ -20,7 +20,7 @@ class AnimeViewSet(ModelViewSet):
     serializer_class = AnimeSerializer
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = AnimeFilter
-    ordering_fields = ['date_aired', 'title']    
+    ordering_fields = ['date_aired', 'title', 'likes_count']    
     permission_classes = [IsAdminUserOrReadOnly]
 
 
