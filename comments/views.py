@@ -12,7 +12,7 @@ from .utils import is_author
 
 
 class CommentViewSet(ModelViewSet):
-    queryset = Comment.objects.all()
+    queryset = Comment.objects.prefetch_related('user', 'anime').all()
     serializer_class = CommentSerializer
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = CommentFilter
