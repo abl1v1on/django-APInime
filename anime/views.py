@@ -1,17 +1,18 @@
 from rest_framework import status
-from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
 from rest_framework.filters import OrderingFilter
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
+from django.shortcuts import get_object_or_404
 
 from .serializers import AnimeSerializer, LikeSerializer, AnimeSeriesSerializer
 from .filters import AnimeFilter, LikeFilter, AnimeSeriesFilter
 from .utils import anime_series_urils, likes_utils, get_all_anime, get_likes
 from .permissions import IsAdminUserOrReadOnly
 from .models import Anime
+from .paginations import AnimeListAPIViewPagination
 from comments.utils import is_author
 
 
@@ -22,6 +23,7 @@ class AnimeViewSet(ModelViewSet):
     filterset_class = AnimeFilter
     ordering_fields = ['date_aired', 'title', 'likes_count']    
     permission_classes = [IsAdminUserOrReadOnly]
+    pagination_class = AnimeListAPIViewPagination
 
 
 class AnimeSeriesViewSet(ModelViewSet):
