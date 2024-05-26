@@ -24,6 +24,9 @@
 
 - Commentary and like system.
 
+    
+    and more..
+
 
 <br><br>
 
@@ -815,11 +818,8 @@ GET /comments/?ordering... HTTP
     <p>Example email message about the release of a new episode</p>
     <img src="assets/example_email_message.png" width="350">
 
-<br><br>
-
 
 </div>
 
 
 <br><br>
-
