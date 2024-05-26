@@ -1,9 +1,9 @@
 from config import settings
 from django.core.mail import EmailMultiAlternatives
-from django.db.models import Count, Case, When, Prefetch
+from django.db.models import Count, Case, When
 from django.template.loader import render_to_string
 
-from .models import Anime, AnimeSeries, Like, models, Genre
+from .models import Anime, AnimeSeries, Like, models
 
 
 class Utils:
