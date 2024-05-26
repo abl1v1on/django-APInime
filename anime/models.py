@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.core.exceptions import ValidationError
+
+from .validations import validate_cover_size
 
 
 ANIME_TYPE_CHOISES = [
@@ -18,13 +19,6 @@ VIEWING_STATUS_CHOISES = [
     ('viewed', 'Просмотрено'),
     ('abandoned', 'Заброшено')
 ]
-
-MAX_COVER_SIZE = 2 * 1024 * 1024  # ~2 MB
-
-
-def validate_cover_size(value):
-        if value.size > MAX_COVER_SIZE:
-            raise ValidationError('Максимальный вес обложки 2мб')
 
 
 class Anime(models.Model):
@@ -135,6 +129,10 @@ class Like(models.Model):
     )
     like = models.BooleanField(default=True)
     
+    class Meta:
+        verbose_name = 'Лайк'
+        verbose_name_plural = 'Лайки'
+
     def __str__(self) -> str:
         return self.user.email
     
