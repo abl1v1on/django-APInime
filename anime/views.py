@@ -9,14 +9,14 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from .serializers import AnimeSerializer, LikeSerializer, AnimeSeriesSerializer
 from .filters import AnimeFilter, LikeFilter, AnimeSeriesFilter
-from .utils import anime_utils, anime_series_urils, likes_utils
+from .utils import anime_series_urils, likes_utils, get_all_anime, get_likes
 from .permissions import IsAdminUserOrReadOnly
 from .models import Anime
 from comments.utils import is_author
 
 
 class AnimeViewSet(ModelViewSet):
-    queryset = anime_utils.get_objects()
+    queryset = get_all_anime()
     serializer_class = AnimeSerializer
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = AnimeFilter
@@ -34,7 +34,7 @@ class AnimeSeriesViewSet(ModelViewSet):
 
 
 class LikeViewSet(ModelViewSet):
-    queryset = likes_utils.get_objects()
+    queryset = get_likes()
     serializer_class = LikeSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = LikeFilter   
