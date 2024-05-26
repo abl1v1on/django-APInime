@@ -328,7 +328,7 @@ HTTP 200 OK
 
 `IsAdminOrReadOnly`
 ~~~
-GET /episodes/ HTTP
+POST /episodes/ HTTP
 headers: {
     Authorization: Bearer {your_token}
 }
@@ -358,7 +358,7 @@ HTTP 201 CREATED
 
 `IsAdminOrReadOnly`
 ~~~
-GET /episodes/{episode_id}/ HTTP
+DELETE /episodes/{episode_id}/ HTTP
 headers: {
     Authorization: Bearer {your_token}
 }
@@ -588,7 +588,7 @@ HTTP 201 CREATED
 
 `IsAuthenticatedOrReadOnly`
 ~~~
-POST /likes/{like_id}/ HTTP
+DELETE /likes/{like_id}/ HTTP
 headers: {
     Authorization: Bearer {your_token}
 }
@@ -596,23 +596,14 @@ headers: {
 
 Example response
 ~~~
-HTTP 201 CREATED
-~~~
-
-~~~JSON
-{
-    "id": 0,
-    "user": 0,
-    "like": true,
-    "anime": 0
-}
+HTTP 204 NO CONTENT
 ~~~
 
 <br>
 
 ### Get profiles
 
-`IsAdminOrReadOnly`
+`IsAuthenticatedOrReadOnly`
 ~~~
 GET /users/profiles/ HTTP
 ~~~
@@ -637,7 +628,7 @@ HTTP 200 OK
 
 ### Get profile detail
 
-`IsAdminOrReadOnly`
+`IsAuthenticatedOrReadOnly`
 ~~~
 GET /users/profiles/{profile_id}/ HTTP
 ~~~
@@ -659,7 +650,7 @@ HTTP 200 OK
 
 ### Update profile
 
-`IsAdminOrReadOnly`
+`IsAuthenticatedOrReadOnly`
 ~~~
 PATCH, PUT /users/profiles/{profile_id}/ HTTP
 
