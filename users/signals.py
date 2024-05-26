@@ -24,7 +24,8 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 
 def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
+    if not instance.profile_user:
+        instance.profile.save()
 
 
 post_save.connect(create_user_profile, sender=get_user_model())
