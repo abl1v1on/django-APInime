@@ -119,6 +119,7 @@ class Like(models.Model):
         verbose_name='Аниме',
         related_name='likes_anime'
     )
+    like = models.BooleanField(default=True)
     
     def __str__(self) -> str:
         return self.user.email
