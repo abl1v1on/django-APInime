@@ -37,13 +37,13 @@ def call_in_new_anime_episodes(
 
 
 def get_all_anime():
-    return Anime.objects.all().annotate(
+    return Anime.objects.annotate(
             likes_count=Count(Case(When(likes_anime__like=True, then=1))),    
-        ).prefetch_related('genres', 'studio')
+        ).prefetch_related('genres').select_related('studio').all()
 
 
 def get_likes():
-    return Like.objects.prefetch_related('user', 'anime').all()
+    return Like.objects.select_related('user', 'anime').all()
 
 
 anime_utils = Utils(model=Anime)
