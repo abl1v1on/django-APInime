@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Anime, Studio, Like, AnimeSeries
+from .models import Anime, Studio, Like, AnimeSeries, Genre
 
 
 class StudioSerializer(serializers.ModelSerializer):
@@ -15,17 +15,22 @@ class AnimeSeriesSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class GenreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Genre
+        fields = ['id', 'name']
+
+
 class AnimeSerializer(serializers.ModelSerializer):
     rating = serializers.FloatField(read_only=True)
     views = serializers.IntegerField(read_only=True)
     likes_count = serializers.IntegerField()
+    studio = StudioSerializer()
+    genres = GenreSerializer(many=True)
     
     class Meta:
         model = Anime
         exclude = ('likes', )
-    
-    # def get_likes_count(self, obj: Anime):
-    #     return obj.total_likes()
 
 
 class AnimeSerializerShort(serializers.ModelSerializer):
@@ -37,7 +42,7 @@ class AnimeSerializerShort(serializers.ModelSerializer):
 class LikeSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(
         read_only=True,
-        source='user.id'
+        source='user.pk'
     )
 
     class Meta:
