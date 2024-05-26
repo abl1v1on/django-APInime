@@ -12,19 +12,18 @@
 
 - Registration, authentication and authorization of users using JWT tokens.
 
+- Creating a user profile, updating profile data
+
 - CRUD oprations over anime for administrators.
 
-- List of anime with the ability to filter by some fields, the ability to get video files of series.
+- List of anime with the ability to filter or ordering by some fields, the ability to get video files of series.
 
 - Receive email notifications when new episodes are released if the user has liked the anime and agreed to receive the newsletter when registering.
 
-- Commentary system.
+- Receive email notifications when creating a user
 
-- Filtering anime by title, genres, studio names (will be updated).
+- Commentary and like system.
 
-- Sorting anime by title, date aired (will be updated).
-
-- Ability to give likes to your favorite anime.
 
 <br><br>
 
@@ -59,7 +58,7 @@ HTTP 201 CREATED
 
 ### Get JWT token
 
-`AllowAny`
+`IsAuthenticated`
 ~~~
 POST /users/token/ HTTP
 data: {
@@ -83,7 +82,7 @@ HTTP 200 OK
 
 ### Refresh token
 
-`AllowAny`
+`IsAuthenticated`
 ~~~
 POST /users/token/refresh/ HTTP
 data: {
@@ -121,11 +120,17 @@ HTTP 200 OK
         "id": 0,
         "rating": 0.0,
         "views": 0,
+        "likes_count": 0,
         "sudio": {
             "id": 0,
             "slug": "string"
         },
-        "likes": 0,
+        "genres": [
+            {
+                "id": 0,
+                "name": "string"
+            }
+        ],
         "title": "string",
         "alt_title": "string",
         "description": "string",
@@ -135,7 +140,6 @@ HTTP 200 OK
         "duration": "string",
         "cover": "string",
         "slug": "string",
-        "genres": []
     }
 ]
 ~~~
@@ -163,11 +167,17 @@ HTTP 201 CREATED
     "id": 0,
     "rating": 0.0,
     "views": 0,
+    "likes_count": 0,
     "sudio": {
         "id": 0,
         "slug": "string"
     },
-    "likes": 0,
+    "genres": [
+        {
+            "id": 0,
+            "name": "string"
+        }
+    ],
     "title": "string",
     "alt_title": "string",
     "description": "string",
@@ -177,8 +187,8 @@ HTTP 201 CREATED
     "duration": "string",
     "cover": "string",
     "slug": "string",
-    "genres": []
 }
+
 ~~~
 
 <br>
@@ -199,11 +209,17 @@ HTTP 200 OK
     "id": 0,
     "rating": 0.0,
     "views": 0,
+    "likes_count": 0,
     "sudio": {
         "id": 0,
         "slug": "string"
     },
-    "likes": 0,
+    "genres": [
+        {
+            "id": 0,
+            "name": "string"
+        }
+    ],
     "title": "string",
     "alt_title": "string",
     "description": "string",
@@ -213,7 +229,6 @@ HTTP 200 OK
     "duration": "string",
     "cover": "string",
     "slug": "string",
-    "genres": []
 }
 ~~~
 
@@ -259,11 +274,17 @@ HTTP 200 OK
     "id": 0,
     "rating": 0.0,
     "views": 0,
+    "likes_count": 0,
     "sudio": {
         "id": 0,
         "slug": "string"
     },
-    "likes": 0,
+    "genres": [
+        {
+            "id": 0,
+            "name": "string"
+        }
+    ],
     "title": "string",
     "alt_title": "string",
     "description": "string",
@@ -273,7 +294,6 @@ HTTP 200 OK
     "duration": "string",
     "cover": "string",
     "slug": "string",
-    "genres": []
 }
 ~~~
 
@@ -295,7 +315,8 @@ HTTP 200 OK
 [
     {
         "id": 0,
-        "series_file": "path_to_file",
+        "series_file": "string",
+        "series_number": 0,
         "anime_id": 0
     }
 ]
@@ -308,8 +329,13 @@ HTTP 200 OK
 `IsAdminOrReadOnly`
 ~~~
 GET /episodes/ HTTP
+headers: {
+    Authorization: Bearer {your_token}
+}
+
 data: {
     series_file: str,
+    series_number: int,
     anime_id: int
 }
 ~~~
@@ -320,13 +346,27 @@ HTTP 201 CREATED
 ~~~
 
 ~~~JSON
-[
-    {
-        "id": 0,
-        "series_file": "path_to_file",
-        "anime_id": 0
-    }
-]
+{
+    "id": 0,
+    "series_file": "string",
+    "series_number": 0,
+    "anime_id": 0
+}
+~~~
+
+### Delete anime episode
+
+`IsAdminOrReadOnly`
+~~~
+GET /episodes/{episode_id}/ HTTP
+headers: {
+    Authorization: Bearer {your_token}
+}
+~~~
+
+Example response
+~~~
+HTTP 204 NO CONTENT
 ~~~
 
 
@@ -348,10 +388,10 @@ HTTP 200 OK
 [
     {
         "id": 0,
+        "user": 0,
         "comment_text": "string",
         "date_created": "2024-05-21T19:27:39.436599Z",
-        "anime": 0,
-        "user": 0
+        "anime": 0
     }
 ]
 ~~~
@@ -363,10 +403,13 @@ HTTP 200 OK
 `IsAuthenticatedOrReadOnly`
 ~~~
 POST /comments/ HTTP
+headers: {
+    Authorization: Bearer {your_token}
+}
+
 data: {
     comment_text: str,
-    anime: int,
-    user: int
+    anime: int
 }
 ~~~
 
@@ -376,15 +419,13 @@ HTTP 201 CREATED
 ~~~
 
 ~~~JSON
-[
-    {
-        "id": 0,
-        "comment_text": "string",
-        "date_created": "2024-05-21T19:27:39.436599Z",
-        "anime": 0,
-        "user": 0
-    }
-]
+{
+    "id": 0,
+    "user": 0,
+    "comment_text": "string",
+    "date_created": "2024-05-21T19:27:39.436599Z",
+    "anime": 0
+}
 ~~~
 
 <br>
@@ -404,10 +445,10 @@ HTTP 200 OK
 ~~~JSON
 {
     "id": 0,
+    "user": 0,
     "comment_text": "string",
     "date_created": "2024-05-21T19:27:39.436599Z",
-    "anime": 0,
-    "user": 0
+    "anime": 0
 }
 ~~~
 
@@ -418,6 +459,10 @@ HTTP 200 OK
 `IsAuthenticatedOrReadOnly`
 ~~~
 DELETE /comments/{comment_id}/ HTTP
+
+headers: {
+    Authorization: Bearer {your_token}
+}
 ~~~
 
 Example response
@@ -433,6 +478,10 @@ HTTP 204 NO CONTENT
 `IsAuthenticatedOrReadOnly`
 ~~~
 PATH, PUT /comments/{comment_id}/ HTTP
+headers: {
+    Authorization: Bearer {your_token}
+}
+
 data: {
     **new_comment
 }
@@ -446,10 +495,10 @@ HTTP 200 OK
 ~~~JSON
 {
     "id": 0,
+    "user": 0,
     "comment_text": "string",
     "date_created": "2024-05-21T19:27:39.436599Z",
-    "anime": 0,
-    "user": 0
+    "anime": 0
 }
 ~~~
 
@@ -474,9 +523,33 @@ HTTP 200 OK
     {
         "id": 0,
         "user": 0,
+        "like": true,
         "anime": 0
-    },
+    }
 ]
+~~~
+
+<br>
+
+### Get like detail
+
+`IsAuthenticatedOrReadOnly`
+~~~
+GET /likes/{like_id}/ HTTP
+~~~
+
+Example response
+~~~
+HTTP 200 OK
+~~~
+
+~~~JSON
+{
+    "id": 0,
+    "user": 0,
+    "like": true,
+    "anime": 0
+}
 ~~~
 
 <br>
@@ -486,8 +559,11 @@ HTTP 200 OK
 `IsAuthenticatedOrReadOnly`
 ~~~
 POST /likes/ HTTP
+headers: {
+    Authorization: Bearer {your_token}
+}
+
 data: {
-    user: int,
     anime: int
 }
 ~~~
@@ -498,18 +574,123 @@ HTTP 201 CREATED
 ~~~
 
 ~~~JSON
+{
+    "id": 0,
+    "user": 0,
+    "like": true,
+    "anime": 0
+}
+~~~
+
+<br>
+
+### Delete like
+
+`IsAuthenticatedOrReadOnly`
+~~~
+POST /likes/{like_id}/ HTTP
+headers: {
+    Authorization: Bearer {your_token}
+}
+~~~
+
+Example response
+~~~
+HTTP 201 CREATED
+~~~
+
+~~~JSON
+{
+    "id": 0,
+    "user": 0,
+    "like": true,
+    "anime": 0
+}
+~~~
+
+<br>
+
+### Get profiles
+
+`IsAdminOrReadOnly`
+~~~
+GET /users/profiles/ HTTP
+~~~
+
+Example response
+~~~
+HTTP 200 OK
+~~~
+
+~~~JSON
 [
     {
         "id": 0,
-        "user": 0,
-        "anime": 0
-    },
+        "profile_pic": "string",
+        "desc": 0,
+        "user": 0
+    }
 ]
 ~~~
 
-will be updated...
+<br>
+
+### Get profile detail
+
+`IsAdminOrReadOnly`
+~~~
+GET /users/profiles/{profile_id}/ HTTP
+~~~
+
+Example response
+~~~
+HTTP 200 OK
+~~~
+
+~~~JSON
+{
+    "id": 0,
+    "profile_pic": "string",
+    "desc": 0,
+    "user": 0
+}
+~~~
+
+
+### Update profile
+
+`IsAdminOrReadOnly`
+~~~
+PATCH, PUT /users/profiles/{profile_id}/ HTTP
+
+headers: {
+    Authorization: Bearer {your_token}
+}
+
+data: {
+    **new_profile_data
+}
+~~~
+
+Example response
+~~~
+HTTP 200 OK
+~~~
+
+~~~JSON
+{
+    "id": 0,
+    "profile_pic": "string",
+    "desc": 0,
+    "user": 0
+}
+~~~
+
+
 
 <br><br>
+
+
 
 ## Filters
 
