@@ -705,6 +705,18 @@ GET /anime/?filters... HTTP
 
 <br>
 
+### Episodes list
+
+~~~
+GET /episodes/?filters... HTTP
+~~~
+
+- By anime 
+
+    `?anime_id=1`
+
+<br>
+
 ### Comment list
 
 ~~~
@@ -737,16 +749,77 @@ GET /likes/?filters... HTTP
 
 <br><br>
 
-## Example email message about the release of a new episode
+## Sortings
 
+### Anime list
+
+~~~
+GET /anime/?ordering... HTTP
+~~~
+
+- Date aired 
+
+    `?ordering=(-)date_aired`
+
+- Title 
+
+    `?ordering=(-)title`
+
+- Likes count 
+    
+    `?ordering=(-)likes_count`
+
+<br>
+
+### Episodes list
+
+~~~
+GET /episodes/?ordering... HTTP
+~~~
+
+- Series number
+
+    `?ordering=(-)series_number`
+
+<br>
+
+### Comment list
+
+~~~
+GET /comments/?ordering... HTTP
+~~~
+
+- Date created
+
+    `?ordering=(-)date_created`
+
+- Comment text
+
+    `?ordering=(-)comment_text`
+
+
+<br><br>
+
+
+## Signals
+
+### 1. Creating a user profile during registration
+### 2. Sending a letter to the user's e-mail when registering
 <div align="center">
-    <img src="assets/example_email_message.png" width="450">
+    <p>Example email message after registration</p>
+    <img src="assets/example_email_message_after_register.png" width="350">
+</div>
+
+### 3. Sending an email to a user's e-mail when a new episode of his favorite anime is released
+<div align="center">
+    <p>Example email message about the release of a new episode</p>
+    <img src="assets/example_email_message.png" width="350">
+
+<br><br>
+
+
 </div>
 
 
 <br><br>
 
-## Example email message after registration
-<div align="center">
-    <img src="assets/example_email_message_after_register.png" width="450">
-</div>
